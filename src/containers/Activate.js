@@ -7,6 +7,7 @@ const Activate = ({ verify, match }) => {
     const [verified, setVerified] = useState(false);
 
     const verify_account = e => {
+        // returms 
         const uid = match.params.uid;
         const token = match.params.token;
 

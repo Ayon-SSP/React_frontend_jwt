@@ -21,6 +21,21 @@ import {
     LOGOUT
 } from './types';
 
+function getCSRFToken() {
+    const name = 'csrf_token=';
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+    for (let i = 0; i < cookieArray.length; i++) {
+        let cookie = cookieArray[i].trim();
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+    return '';
+}
+
+// axios.defaults.headers.common['X-CSRF-TOKEN'] = getCSRFToken(); 
+
 export const load_user = () => async dispatch => {
     if (localStorage.getItem('access')) {
         const config = {
@@ -178,11 +193,13 @@ export const login = (email, password) => async dispatch => {
 export const signup = (first_name, last_name, email, password, re_password) => async dispatch => {
     const config = {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         }
     };
 
-    const body = JSON.stringify({ first_name, last_name, email, password, re_password });
+    const name = first_name + ' ' + last_name;
+
+    const body = JSON.stringify({ name, email, password, re_password });
 
     try {
         const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/`, body, config);

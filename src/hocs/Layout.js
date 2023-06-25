@@ -1,18 +1,3 @@
-// import React from "react";
-// import Navbar from "../components/Navbar";
-
-// const Layout = (props) => {
-//     return (
-//         <div>
-//             <Navbar />
-//             {props.children}
-//         </div>
-//     )
-// };
-
-// export default Layout;
-
-
 import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { connect } from 'react-redux';
